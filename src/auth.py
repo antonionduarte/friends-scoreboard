@@ -24,6 +24,7 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        admin = request.form['admin']
         database = get_db()
         error = None
 
@@ -37,7 +38,7 @@ def register():
 
         if error is None:
             try: 
-                database.execute(INSERT_USER, (username, generate_password_hash(password), False),)
+                database.execute(INSERT_USER, (username, generate_password_hash(password), admin),)
                 database.commit()
             except database.IntegrityError:
                 error = f"User {username} is already registered."
