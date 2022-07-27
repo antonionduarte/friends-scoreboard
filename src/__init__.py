@@ -1,6 +1,6 @@
 import os 
 
-from flask import Flask 
+from flask import Flask, render_template
 from . import database, auth
 
 def create_app(test_config=None):
@@ -25,5 +25,9 @@ def create_app(test_config=None):
     auth.init_auth(app)
 
     app.register_blueprint(auth.blueprint)
+
+    @app.route("/")
+    def index():
+        return render_template('index.html')
 
     return app

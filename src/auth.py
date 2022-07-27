@@ -28,9 +28,8 @@ def register():
         database = get_db()
         error = None
 
-        if not g.user.admin:
+        if not g.user['admin']:
             error = 'Only administrators can create new accounts'
-
         if not username: 
             error = 'Username is required.'
         elif not password: 
@@ -38,14 +37,14 @@ def register():
 
         if error is None:
             try: 
-                database.execute(INSERT_USER, (username, generate_password_hash(password), admin),)
+                database.execute(INSERT_USER, (username, generate_password_hash(password), eval(admin)),)
                 database.commit()
             except database.IntegrityError:
                 error = f"User {username} is already registered."
             else: 
                 return redirect(url_for("auth.login"))
 
-            flash(error)
+        flash(error)
     return render_template('auth/register.html')
 
 
@@ -78,7 +77,7 @@ def load_logged_in_user():
     if user_id is None:
         g.user = None
     else:
-        g.user = get_db().execute(SELECT_USER_ID, (user_id)).fetchone()
+        g.user = get_db().execute(SELECT_USER_ID, str(user_id)).fetchone()
 
 
 @blueprint.route('/logout')
