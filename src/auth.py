@@ -6,6 +6,9 @@ from flask import (
 from werkzeug.security import check_password_hash, generate_password_hash 
 from src.database import get_db
 
+SELECT_USER_USERNAME = 'SELECT * FROM user WHERE username = ?'
+SELECT_USER_ID = 'SELECT * FROM user WHERE id = ?'
+INSERT_USER = 'INSERT INTO user (username, password) VALUES (?, ?)'
 
 blueprint = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -24,10 +27,7 @@ def register():
 
         if error is None:
             try: 
-                database.execute(
-                    "INSERT INTO user (username, password) VALUES (?, ?)",
-                    (username, generate_password_hash(password)),
-                )
+                database.execute(INSERT_USER, (username, generate_password_hash(password)),)
                 database.commit()
             except database.IntegrityError:
                 error = f"User {username} is already registered."
@@ -45,9 +45,7 @@ def login():
         password = request.form['password']
         database = get_db()
         error = None
-        user = database.execute(
-                'SELECT * FROM user WHERE username = ?', (username,)
-        ).fetchone()
+        user = database.execute(SELECT_USER_USERNAME, (username,)).fetchone()
 
         if user is None:
             error = 'Incorrect username.'
@@ -66,13 +64,10 @@ def login():
 @blueprint.before_app_request 
 def load_logged_in_user():
     user_id = session.get('user_id')
-
     if user_id is None:
         g.user = None
     else:
-        g.user = get_db().execute(
-            'SELECT * FROM user WHERE id = ?', (user_id)
-        ).fetchone()
+        g.user = get_db().execute(SELECT_USER_ID, (user_id)).fetchone()
 
 
 @blueprint.route('/logout')
