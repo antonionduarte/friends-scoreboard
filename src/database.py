@@ -26,6 +26,9 @@ def init_db():
         db.executescript(file.read().decode('utf8'))
 
 
+# CLI Commands:
+
+
 @click.command('init-db')
 @with_appcontext
 def init_db_command():

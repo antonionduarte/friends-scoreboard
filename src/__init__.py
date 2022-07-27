@@ -1,7 +1,7 @@
 import os 
 
 from flask import Flask 
-from . import database
+from . import database, auth
 
 def create_app(test_config=None):
     # create and configure the app
@@ -22,10 +22,8 @@ def create_app(test_config=None):
         pass 
 
     database.init_app(app)
+    auth.init_auth(app)
 
-    # a simple page 
-    @app.route('/hello')
-    def hello():
-        return 'Hello, World!'
+    app.register_blueprint(auth.blueprint)
 
     return app

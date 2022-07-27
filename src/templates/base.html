@@ -4,6 +4,8 @@
 <nav>
   <h1>Score</h1>
   <ul>
+    {% if g.user.admin %}
+      <li><a href="{{ url_for('auth.admin') }}">Admin</a>
     {% if g.user %}
       <li><span>{{ g.user['username'] }}</span>
       <li><a href="{{ url_for('auth.logout') }}">Log Out</a>
