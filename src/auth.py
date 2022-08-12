@@ -15,9 +15,7 @@ INSERT_USER = 'INSERT INTO user (username, password, admin) VALUES (?, ?, ?)'
 
 blueprint = Blueprint('auth', __name__, url_prefix='/auth')
 
-
 # Routes:
-
 
 @blueprint.route('/register', methods=('GET', 'POST'))
 def register():
@@ -27,14 +25,12 @@ def register():
         admin = request.form['admin']
         database = get_db()
         error = None
-
         if not g.user['admin']:
             error = 'Only administrators can create new accounts'
         if not username: 
             error = 'Username is required.'
         elif not password: 
             error = 'Password is required'
-
         if error is None:
             try: 
                 database.execute(INSERT_USER, (username, generate_password_hash(password), eval(admin)),)
@@ -43,7 +39,6 @@ def register():
                 error = f"User {username} is already registered."
             else: 
                 return redirect(url_for("auth.login"))
-
         flash(error)
     return render_template('auth/register.html')
 
@@ -56,16 +51,14 @@ def login():
         database = get_db()
         error = None
         user = database.execute(SELECT_USER_USERNAME, (username,)).fetchone()
-
         if user is None:
             error = 'Incorrect username.'
         elif not check_password_hash(user['password'], password):
             error = 'Incorrect password.'
-
         if error is None: 
             session.clear()
             session['user_id'] = user['id']
-            return redirect(url_for('index'))
+            return redirect(url_for('index.index'))
 
         flash(error)
     return render_template('auth/login.html')
@@ -83,7 +76,7 @@ def load_logged_in_user():
 @blueprint.route('/logout')
 def logout():
     session.clear()
-    return redirect(url_for('index'))
+    return redirect(url_for('index.index'))
 
 
 def login_required(view):
@@ -105,19 +98,16 @@ def login_required(view):
 def add_admin_command(username, password):
     database = get_db()
     error = None
-
     if not username: 
         error = 'Username is required.'
     elif not password: 
         error = 'Password is required'
-
     if error is None:
         try: 
             database.execute(INSERT_USER, (username, generate_password_hash(password), True),)
             database.commit()
         except database.IntegrityError:
             error = f"User {username} is already registered."
-
     if error is None: 
         click.echo('Successfully registered Admin account')
     else:
@@ -131,19 +121,16 @@ def add_admin_command(username, password):
 def add_user_command(username, password):
     database = get_db()
     error = None
-
     if not username: 
         error = 'Username is required.'
     elif not password: 
         error = 'Password is required'
-
     if error is None:
         try: 
             database.execute(INSERT_USER, (username, generate_password_hash(password), False),)
             database.commit()
         except database.IntegrityError:
             error = f"User {username} is already registered."
-
     if error is None: 
         click.echo('Successfully registered User account')
     else:

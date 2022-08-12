@@ -1,4 +1,5 @@
 DROP TABLE IF EXISTS user;
+DROP TABLE IF EXISTS entry;
 
 CREATE TABLE user (
   id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -6,3 +7,12 @@ CREATE TABLE user (
   password TEXT NOT NULL,
   admin INTEGER NOT NULL
 );
+
+CREATE TABLE entry (
+  id INTEGER,
+  score INTEGER,
+  user_id INTEGER,
+  PRIMARY KEY (id, user_id),
+  FOREIGN KEY (user_id) REFERENCES user (id)
+);
+

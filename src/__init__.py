@@ -1,10 +1,10 @@
 import os 
 
-from flask import Flask, render_template
-from . import database, auth
+from flask import Flask 
+from . import database, auth, scoreboard, index
 
 def create_app(test_config=None):
-    # create and configure the app
+    # Create and configure the app
     app = Flask(__name__, instance_relative_config = True)
     app.config.from_mapping(
         SECRET_KEY = 'dev',
@@ -21,13 +21,13 @@ def create_app(test_config=None):
     except OSError:
         pass 
 
+    # Initializers
     database.init_app(app)
     auth.init_auth(app)
 
+    # Blueprints
     app.register_blueprint(auth.blueprint)
-
-    @app.route("/")
-    def index():
-        return render_template('index.html')
+    app.register_blueprint(scoreboard.blueprint)
+    app.register_blueprint(index.blueprint)
 
     return app
