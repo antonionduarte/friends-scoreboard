@@ -15,8 +15,7 @@ INSERT_USER = 'INSERT INTO user (username, password, admin) VALUES (?, ?, ?)'
 
 blueprint = Blueprint('auth', __name__, url_prefix='/auth')
 
-# Routes:
-
+# Routes
 @blueprint.route('/register', methods=('GET', 'POST'))
 def register():
     if request.method == 'POST':
