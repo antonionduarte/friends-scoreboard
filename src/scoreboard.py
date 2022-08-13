@@ -33,7 +33,7 @@ def scoreboard():
 
 @blueprint.route('/current-score', methods=('GET', 'POST'))
 def current_score():
-    # needs to be logged in
+    # TODO: Very strongly requires authentication
     return data
 
 def calculate_score():
