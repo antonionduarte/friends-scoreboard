@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block header %}
+  <h1>{% block title %}Scoreboard{% endblock %}</h1>
+{% endblock %}
+{% block content %}
+  <div>
+    <canvas id="scoreboard-chart"></canvas>
+  </div>
+
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="{{ url_for('static', filename='score.js') }}" type="module"></script>
+{% endblock %}

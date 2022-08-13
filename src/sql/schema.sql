@@ -12,6 +12,7 @@ CREATE TABLE entry (
   id INTEGER,
   score INTEGER,
   user_id INTEGER,
+  entry_date TIMESTAMP,
   PRIMARY KEY (id, user_id),
   FOREIGN KEY (user_id) REFERENCES user (id)
 );
