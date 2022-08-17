@@ -1,4 +1,4 @@
-const REQUEST_BASE_URL = 'http://localhost:5000'
+const REQUEST_BASE_URL = 'http://127.0.0.1:5000'
 
 const score_url = `${REQUEST_BASE_URL}/score/current-score`
 
@@ -36,6 +36,8 @@ const labels = [
   'May',
   'June',
 ];
+
+console.log(fetched_data)
 
 let final_datasets = []
 
