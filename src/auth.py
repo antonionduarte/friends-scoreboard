@@ -87,9 +87,6 @@ def login_required(view):
     return wrapped_view
 
 
-# CLI Commands:
-
-
 @click.command('add-admin')
 @click.argument('username')
 @click.argument('password')
@@ -130,7 +127,6 @@ def add_user_command(username, password):
             database.commit()
         except database.IntegrityError:
             error = f"User {username} is already registered."
-    if error is None: 
         click.echo('Successfully registered User account')
     else:
         click.echo(error)

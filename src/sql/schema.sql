@@ -9,11 +9,9 @@ CREATE TABLE user (
 );
 
 CREATE TABLE entry (
-  id INTEGER,
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
   score INTEGER,
   user_id INTEGER,
-  entry_date TIMESTAMP,
-  PRIMARY KEY (id, user_id),
+  entry_date TEXT,
   FOREIGN KEY (user_id) REFERENCES user (id)
 );
-

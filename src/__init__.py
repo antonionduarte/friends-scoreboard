@@ -1,7 +1,7 @@
 import os 
 
 from flask import Flask 
-from . import database, auth, scoreboard, index
+from . import database, auth, scoreboard, index, entry
 
 def create_app(test_config=None):
     # Create and configure the app
@@ -24,10 +24,12 @@ def create_app(test_config=None):
     # Initializers
     database.init_app(app)
     auth.init_auth(app)
+    entry.init_entries(app)
 
     # Blueprints
     app.register_blueprint(auth.blueprint)
     app.register_blueprint(scoreboard.blueprint)
     app.register_blueprint(index.blueprint)
+    app.register_blueprint(entry.blueprint)
 
     return app
