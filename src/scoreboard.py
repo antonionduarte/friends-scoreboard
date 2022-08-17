@@ -1,14 +1,10 @@
 from flask import (
-    Blueprint, render_template, session, request
+    Blueprint, render_template,
 )
-from flask.cli import with_appcontext
 
 import datetime
-import click
-import sqlite3
 
 from src.database import get_db 
-
 
 # What needs to happen: 
 # - You can only see the Scoreboard page if you're logged in

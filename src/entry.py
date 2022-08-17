@@ -1,11 +1,9 @@
 from flask import (
-    Blueprint, render_template, session, request,
+    Blueprint, render_template
 )
 from flask.cli import with_appcontext
 
 import click
-import sqlite3
-import datetime
 
 from src.database import get_db 
 

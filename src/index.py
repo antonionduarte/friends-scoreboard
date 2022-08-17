@@ -1,5 +1,5 @@
 from flask import (
-    Blueprint, render_template, session, request, url_for, redirect,
+    Blueprint, url_for, redirect,
     g
 )
 
