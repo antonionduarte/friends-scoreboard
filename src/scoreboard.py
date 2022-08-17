@@ -40,32 +40,6 @@ def current_score():
     return data 
 
 
-@blueprint.route('/current-score-wip', methods=('GET', 'POST'))
-def current_score_wip():
-    now = datetime.datetime.now()
-    score = calculate_score(now.month, now.year, 1)
-    final_score = { 'score': score }
-    return final_score
-
-
-@blueprint.route('/current-score-wip-final', methods=('GET', 'POST'))
-def current_score_wip_final():
-    # TODO: Very strongly requires authentication
-    database = get_db()
-    now = datetime.datetime.now()
-    users = database.execute(SELECT_USERS).fetchall()
-    data = { 'data' : [] }
-
-    for user in users: 
-        score = calculate_score(now.month, now.year, user[0])
-        data['data'].append({
-            'label': user[1],
-            'data': score,
-            'id': user[0]
-        })
-    
-    return data 
-
 # Calculates a user's score for a specific month
 def calculate_score(month, year, user_id):
     database = get_db()
