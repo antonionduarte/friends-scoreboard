@@ -15,7 +15,7 @@ blueprint = Blueprint('entry', __name__, url_prefix=('/entry'))
 @blueprint.route('')
 def scoreboard():
     return render_template('scoreboard.html')
-
+ 
 
 @click.command('add-entry')
 @click.argument('timestamp')
