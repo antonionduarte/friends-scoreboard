@@ -11,7 +11,7 @@ from flask.cli import with_appcontext
 
 SELECT_USER_USERNAME = 'SELECT * FROM user WHERE username = ?'
 SELECT_USER_ID = 'SELECT * FROM user WHERE id = ?'
-INSERT_USER = 'INSERT INTO user (username, password, admin) VALUES (?, ?, ?)'
+INSERT_USER = 'INSERT INTO user (username, password, admin, fullname) VALUES (?, ?, ?, ?)'
 
 blueprint = Blueprint('auth', __name__, url_prefix='/auth')
 
@@ -21,18 +21,21 @@ def register():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
+        fullname = request.form['fullname']
         admin = request.form['admin']
         database = get_db()
         error = None
         if not g.user['admin']:
-            error = 'Only administrators can create new accounts'
+            error = 'Only administrators can create new accounts.'
         if not username: 
             error = 'Username is required.'
+        if not fullname: 
+            error = 'Fullname is required.'
         elif not password: 
             error = 'Password is required'
         if error is None:
             try: 
-                database.execute(INSERT_USER, (username, generate_password_hash(password), eval(admin)),)
+                database.execute(INSERT_USER, (username, generate_password_hash(password), eval(admin), fullname),)
                 database.commit()
             except database.IntegrityError:
                 error = f"User {username} is already registered."
@@ -90,17 +93,20 @@ def login_required(view):
 @click.command('add-admin')
 @click.argument('username')
 @click.argument('password')
+@click.argument('fullname')
 @with_appcontext
-def add_admin_command(username, password):
+def add_admin_command(username, password, fullname):
     database = get_db()
     error = None
     if not username: 
         error = 'Username is required.'
+    if not fullname:
+        error = 'Fullname is required.'
     elif not password: 
         error = 'Password is required'
     if error is None:
         try: 
-            database.execute(INSERT_USER, (username, generate_password_hash(password), True),)
+            database.execute(INSERT_USER, (username, generate_password_hash(password), True, fullname),)
             database.commit()
         except database.IntegrityError:
             error = f"User {username} is already registered."
@@ -113,17 +119,20 @@ def add_admin_command(username, password):
 @click.command('add-user')
 @click.argument('username')
 @click.argument('password')
+@click.argument('fullname')
 @with_appcontext
-def add_user_command(username, password):
+def add_user_command(username, password, fullname):
     database = get_db()
     error = None
     if not username: 
         error = 'Username is required.'
+    if not fullname:
+        error = 'Fullname is required.'
     elif not password: 
         error = 'Password is required'
     if error is None:
         try: 
-            database.execute(INSERT_USER, (username, generate_password_hash(password), False),)
+            database.execute(INSERT_USER, (username, generate_password_hash(password), False, fullname),)
             database.commit()
         except database.IntegrityError:
             error = f"User {username} is already registered."

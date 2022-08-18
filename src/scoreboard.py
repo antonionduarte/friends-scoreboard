@@ -29,7 +29,7 @@ def current_score():
     for user in users: 
         score = calculate_score(now.month, now.year, user[0])
         data['data'].append({
-            'label': user[1],
+            'label': user[4],
             'data': score,
             'id': user[0]
         })
@@ -45,7 +45,12 @@ def calculate_score(month, year, user_id):
         final_date = '{}-{}-31'.format(year, month)
         entries = database.execute(query_str, (init_date, final_date, user_id)).fetchall()
         scores = [0] * 31 
+        curr_score = 0
         for entry in entries: 
             day = int(entry[2].split('-')[2])
             scores[day - 1] += entry[0]
-        return scores
+        final_scores = [0] * 31
+        for i in range(0, 31): 
+            curr_score += scores[i]
+            final_scores[i] = curr_score
+        return final_scores

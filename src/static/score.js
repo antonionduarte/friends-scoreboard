@@ -83,7 +83,17 @@ const data = {
 const config = {
   type: 'line',
   data: data,
-  options: {}
+  options: {
+    scales: {
+      y: {
+        min: 0,
+        suggestedMax: 20
+      }
+    },
+    tooltips: {
+      mode: 'index'
+    }
+  },
 };
 
 const chart = new Chart(
