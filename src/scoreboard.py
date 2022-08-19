@@ -16,6 +16,7 @@ blueprint = Blueprint('score', __name__, url_prefix=('/score'))
 
 @blueprint.route('')
 def scoreboard():
+    # TODO: Very strongly required authentication
     return render_template('scoreboard.html')
 
 
