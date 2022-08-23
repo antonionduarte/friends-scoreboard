@@ -12,3 +12,22 @@
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <script src="{{ url_for('static', filename='score.js') }}" type="module"></script>
 {% endblock %}
+{% block popup %}
+  <h2>Add Entry</h2>
+  <form method="post">
+  <ul class="form-style-1">
+    <li>
+      <label for="datetime">Date</label>
+      <input type="date" id="datetime" name="datetime">
+    </li>
+    <li>
+      <label for="score">Score</label>
+      <input type="number" id="score" name="score">
+    </li>
+    <li>
+      <button class="button-54" type="submit" value="Submit">Submit</button>
+    </li>
+  </ul>
+  </form>
+  <button id="close" onclick="toggle()" class="button-54">Close</button> 
+{% endblock %}

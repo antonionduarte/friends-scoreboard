@@ -85,6 +85,11 @@ const config = {
     },
     scales: {
       y: {
+        title: {
+          text: 'Score',
+          display: false,
+          color: '#D8DEE9',
+        },
         min: 0,
         suggestedMax: 20,
         grid: {
@@ -98,6 +103,11 @@ const config = {
         },
       },
       x: {
+        title: {
+          text: 'Day of the Month',
+          display: false,
+          color: 'white',
+        },
         grid: {
           color: '#D8DEE9',
           drawBorder: false

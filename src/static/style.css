@@ -1,13 +1,28 @@
 html {
   font-family: sans-serif;
   background: #2E3440;
-  padding: 1rem;
 }
 
 body {
-  max-width: 80%;
+  max-width: 100%;
   margin: 0 auto;
   background: #2E3440;
+}
+
+@media (min-width: 768px) {
+  body {
+    max-width: 80%;
+    margin: 0 auto;
+    background: #2E3440;
+  }
+
+  html {
+    padding: 1em;
+  }
+
+  .content {
+    box-shadow: rgba(240, 46, 170, 0.4) -5px 5px, rgba(240, 46, 170, 0.3) -10px 10px, rgba(240, 46, 170, 0.2) -15px 15px, rgba(240, 46, 170, 0.1) -20px 20px, rgba(240, 46, 170, 0.05) -25px 25px;
+  }
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -27,17 +42,48 @@ h1, h2, h3, h4, h5, h6 {
   user-select: none;
 }
 
-/* CSS */
+.popup {
+  font-family: "Ubuntu", sans-serif;
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  /* width: 40%; */
+  padding: 4px;
+  background-color: #2E3440;
+  visibility: hidden;
+  opacity: 0;
+  transition: 0.5s;
+}
+
+.popup.active {
+  top: 50%;
+  visibility: visible;
+  opacity: 1;
+  transition: 0.5s;
+}
+
+.popup-inside {
+  padding: 30px;
+  background-color: #D8DEE9;
+}
+
+.popup-inside > h2 {
+  color: #2E3440;
+}
+
 .button-54 {
   font-family: "Ubuntu", sans-serif;
   font-size: 16px;
-  letter-spacing: 2px;
+  letter-spacing: 1px;
   text-decoration: none;
   text-transform: uppercase;
   color: #2E3440;
   background-color: #D8DEE9;
   cursor: pointer;
-  border: 3px solid;
+  border-style: solid;
+  border-color: #2E3440;
+  border-width: 3px;
   padding: 0.25em 0.5em;
   box-shadow: 1px 1px 0px 0px, 2px 2px 0px 0px, 3px 3px 0px 0px, 4px 4px 0px 0px, 5px 5px 0px 0px;
   position: relative;
@@ -112,7 +158,7 @@ nav ul li a, nav ul li span, header .action {
   padding: 0 1rem 1rem;
   background: #4C566A;
   border-radius: 0px 0px 4px 4px;
-  box-shadow: rgba(240, 46, 170, 0.4) -5px 5px, rgba(240, 46, 170, 0.3) -10px 10px, rgba(240, 46, 170, 0.2) -15px 15px, rgba(240, 46, 170, 0.1) -20px 20px, rgba(240, 46, 170, 0.05) -25px 25px;
+  /* box-shadow: rgba(240, 46, 170, 0.4) -5px 5px, rgba(240, 46, 170, 0.3) -10px 10px, rgba(240, 46, 170, 0.2) -15px 15px, rgba(240, 46, 170, 0.1) -20px 20px, rgba(240, 46, 170, 0.05) -25px 25px; */
 }
 
 .content > header {
