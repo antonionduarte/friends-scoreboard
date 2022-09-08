@@ -38,6 +38,8 @@ def current_score():
 
 
 # Calculates a user's score for a specific month
+# TODO: Maybe try to make it so the month in an entry can be in 0X or X format in case 
+#       it's a single digit month.
 def calculate_score(month, year, user_id):
     database = get_db()
     with open('./src/sql/query_month.sql') as query: 
