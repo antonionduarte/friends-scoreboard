@@ -1,5 +1,6 @@
 # Friends Scoreboard
-A Scoreboard Project to Rank a group of friends in a specific way 
+A Scoreboard Project to make a Webpage with a Rank.
+Got bored with this project, but might return to it at any time.
 
 # Install and Run
 I recommend installing it using the `requirements.txt` file, and using the python virtual environment features. 
